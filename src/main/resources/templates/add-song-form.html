@@ -1,0 +1,30 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/layout::main-fragment (~{::title},
+~{::h1},
+~{:: div.container}
+)}">
+<head>
+    <title>Add Song Form</title>
+</head>
+<body>
+<h1></h1>
+<div class="container">
+    <hr/>
+    <h3>Add New Song</h3>
+    <hr/>
+    <form th:action="@{/saveSong}" th:object="${song}" method="POST">
+        <input type="text" th:field="*{composer}" class="form-control col-4 mb-4" placeholder="Enter Composer"/>
+        <input type="text" th:field="*{name}" class="form-control col-4 mb-4" placeholder="Enter Name"/>
+        <input type="text" th:field="*{fullName}" class="form-control col-4 mb-4"
+               placeholder="Enter fullName"/>
+        <input type="text" th:field="*{age}" class="form-control col-4 mb-4" placeholder="Enter Age"/>
+        <input type="text" th:field="*{genre}" class="form-control col-4 mb-4"
+               placeholder="Enter Genre"/>
+        <button type="submit" class="btn btn-primary col-2">Save</button>
+        <input type="hidden" th:field="*{id}"/>
+    </form>
+    <hr/>
+    <a th:href="@{/listSong}">Back to list</a>
+</div>
+</body>
+</html>

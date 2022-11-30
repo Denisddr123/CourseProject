@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{layouts/layout::main-fragment (~{::title},
+~{::h2},
+~{:: #home-main-content}
+)}">
+<head>
+  <title>Song Management System</title>
+</head>
+<body>
+<h2>List Song</h2>
+<div id="home-main-content">
+  <div class="container">
+    <hr/>
+    <a th:href="@{/addSongForm}" class="btn btn-primary">Add Song</a>
+    <br/><br/>
+    <table class="table table-bordered table-striped" id="studentTable">
+      <thead>
+      <tr>
+        <th>Composer</th>
+        <th>Name</th>
+        <th>FullName</th>
+        <th>Age</th>
+        <th>Genre</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="songer: ${song}">
+        <td th:text="${songer.getComposer()}" />
+        <td th:text="${songer.getName()}" />
+        <td th:text="${songer.getFullName()}" />
+        <td th:text="${songer.getAge()}" />
+        <td th:text="${songer.getGenre()}" />
+        <td>
+          <a th:href="@{/showUpdateFormSong(songId=${songer.getId()})}" class="btn btn-info">Update</a>
+          <a th:href="@{/deleteSong(songId=${songer.getId()})}" class="btn btn-danger ml-2">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#songTable").DataTable({
+        'aoColumnDefs': [{
+          'bSortable': false,
+          'aTargets': [-1] /* 1st one, start by the right */
+        }]
+      });
+    })
+  </script>
+</div>
+
+</body></html>

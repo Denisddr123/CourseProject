@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="ERROR">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%style{%date{DEFAULT}}{yellow} %highlight{%-5level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green}
+      %message %K{user} %K{path} %X{user} %K{message} %c{1}%n" />
+        </Console>
+        <JDBC name="MessageSql" tableName="messages">
+            <MarkerFilter marker="MarkerLog" onMatch="ACCEPT" onMismatch="DENY" />
+            <ConnectionFactory class="com.students.webappwithsecurity.service.LogsStoreConnectionFactory"
+            method="getConnectionLog"/>
+            <Column name="user_email" pattern="%K{user}" />
+            <Column name="path" pattern="%K{path}" />
+            <Column name="message" pattern="%K{message}" />
+            <Column name="date" isEventTimestamp="true" />
+        </JDBC>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.students.webappwithsecurity" level="INFO" additivity="false">
+            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="MessageSql" />
+        </Logger>
+        <Root level="ERROR">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+    </Loggers>
+</configuration>

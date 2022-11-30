@@ -18,9 +18,15 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/register/**").permitAll()
+                .antMatchers("/register/**").anonymous()
                 .antMatchers("/index").permitAll()
                 .antMatchers("/users").hasRole("ADMIN")
+                .antMatchers("/user/action").hasRole("ADMIN")
+                .antMatchers("/listSong").hasRole("ADMIN")
+                .antMatchers("/addSongForm").hasRole("ADMIN")
+                .antMatchers("/saveSong").hasRole("ADMIN")
+                .antMatchers("/showUpdateFormSong").hasRole("ADMIN")
+                .antMatchers("/deleteSong").hasRole("ADMIN")
                 .and()
                 .formLogin(
                         form -> form

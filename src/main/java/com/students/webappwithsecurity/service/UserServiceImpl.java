@@ -1,8 +1,10 @@
 package com.students.webappwithsecurity.service;
 
 import com.students.webappwithsecurity.dto.UserDto;
+import com.students.webappwithsecurity.entity.Message;
 import com.students.webappwithsecurity.entity.Role;
 import com.students.webappwithsecurity.entity.User;
+import com.students.webappwithsecurity.repository.MessageRepository;
 import com.students.webappwithsecurity.repository.RoleRepository;
 import com.students.webappwithsecurity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +14,19 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository repository;
     private final PasswordEncoder passwordEncoder;
+    private final MessageRepository messageRepository;
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository repository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository repository, PasswordEncoder passwordEncoder, MessageRepository messageRepository) {
         this.userRepository = userRepository;
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
+        this.messageRepository = messageRepository;
     }
     @Override
     public void saveUser(UserDto userDto) {
@@ -60,6 +63,10 @@ public class UserServiceImpl implements UserService {
         userDto.setLastName(strings[1]);
         userDto.setEmail(user.getEmail());
         return userDto;
+    }
+    public List<Message> findAllActionForUser(String email) {
+        List<Message> messages = messageRepository.findActionByEmail(email);
+        return messages;
     }
     private Role checkRoleExist() {
         Role role = new Role();

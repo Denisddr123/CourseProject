@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{layouts/layout::main-fragment (~{::title},
+~{::h2},
+~{:: #home-main-content}
+)}">
+<head>
+  <title>User Action</title>
+</head>
+<body>
+<h2>Все действия для пользователя</h2>
+<h2 th:text="${user.getName()}"></h2>
+<div id="home-main-content">
+  <div class="container">
+    <hr/>
+    <br/>
+    <table class="table table-bordered table-striped" id="studentTable">
+      <thead>
+      <tr>
+        <th>Дата</th>
+        <th>Путь</th>
+        <th>Сообщение</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="message: ${user.getMessages()}">
+        <td th:text="${message.getDate()}" />
+        <td th:text="${message.getPath()}" />
+        <td th:text="${message.getMessage()}" />
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body></html>
