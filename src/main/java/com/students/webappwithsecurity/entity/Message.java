@@ -27,7 +27,6 @@ public class Message implements Serializable {
     private String message;
     @Column(name = "date")
     private Date date;
-    /*@ManyToOne(optional = false)*/
     @ManyToOne()
     @JoinColumn(name = "user_email", referencedColumnName = "email")
     private User users;

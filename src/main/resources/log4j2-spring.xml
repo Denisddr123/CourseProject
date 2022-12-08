@@ -3,9 +3,9 @@
     <Appenders>
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout pattern="%style{%date{DEFAULT}}{yellow} %highlight{%-5level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green}
-      %message %K{user} %K{path} %X{user} %K{message} %c{1}%n" />
+      %message %K{user} %K{path} %K{message} %c{1}%n" />
         </Console>
-        <JDBC name="MessageSql" tableName="messages">
+        <JDBC name="JDBCAppender" tableName="messages">
             <MarkerFilter marker="MarkerLog" onMatch="ACCEPT" onMismatch="DENY" />
             <ConnectionFactory class="com.students.webappwithsecurity.service.LogsStoreConnectionFactory"
             method="getConnectionLog"/>
@@ -18,7 +18,7 @@
     <Loggers>
         <Logger name="com.students.webappwithsecurity" level="INFO" additivity="false">
             <AppenderRef ref="ConsoleAppender" />
-            <AppenderRef ref="MessageSql" />
+            <AppenderRef ref="JDBCAppender" />
         </Logger>
         <Root level="ERROR">
             <AppenderRef ref="ConsoleAppender"/>

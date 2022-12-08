@@ -11,22 +11,6 @@ import javax.sql.DataSource;
 
 @Configuration
 public class MainConfig {
-    @Value("${spring.datasource.url}")
-    private String url;
-    @Value("${spring.datasource.username}")
-    private String name;
-    @Value("${spring.datasource.password}")
-    private String password;
-    @Bean(name = "h2DataSource")
-    DataSource getDataSource() {
-        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("org.h2.Driver");
-        dataSourceBuilder.url(url);
-        dataSourceBuilder.password(password);
-        dataSourceBuilder.username(name);
-        DataSource dataSource = dataSourceBuilder.build();
-        return dataSource;
-    }
     @Bean
     LogMessageService logMessageService() {
         return new MakeLogMessageService();
